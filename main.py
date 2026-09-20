@@ -26,4 +26,30 @@ async def server_status(ctx):
     else:
         await ctx.send("Minecraft serveren kører ikke 🔴")
 
+@bot.command()
+async def start_server(ctx):
+    result = subprocess.run(["sudo", "systemctl", "is-active", "minecraft"], capture_output=True, text=True)
+    if(result.stdout.strip() == "active"):
+        await ctx.send("Minecraft serveren kører allerede")
+    else:
+        result = subprocess.run(["sudo", "systemctl", "start", "minecraft"], capture_output=True, text=True)
+        if result.stdout:
+            await ctx.send("Der skete en fejl")
+        else:
+            await ctx.send("Serveren kører nu 🟢")
+
+@bot.command()
+async def stop_server(ctx):
+    result = subprocess.run(["sudo", "systemctl", "is-active", "minecraft"], capture_output=True, text=True)
+    if (result.stdout.strip() == "active"):
+        result = subprocess.run(["sudo", "systemctl", "stop", "minecraft"], capture_output=True, text=True)
+        if result.stdout:
+            await ctx.send("Der skete en fejl")
+        else:
+            await ctx.send("Serveren er nu lukket 🔴")
+    else:
+        await ctx.send("Serveren er allerede lukket 🔴")
+
+
+
 bot.run(token)
