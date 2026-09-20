@@ -3,9 +3,15 @@ from discord.ext import commands
 from dotenv import load_dotenv
 import os
 import subprocess
+from mcrcon import MCRcon
 
 load_dotenv()
 token = os.getenv("DISCORD_TOKEN")
+rconpass = os.getenv("MCRCON_PASSWORD")
+
+with MCRcon("127.0.0.1", rconpass, port=25575) as mcr:
+    response = mcr.command("list")
+    print(response)
 
 intents = discord.Intents.default()
 intents.message_content = True
