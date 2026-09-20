@@ -20,7 +20,7 @@ async def on_message(message):
 
 @bot.command()
 async def server_status(ctx):
-    result = subprocess.run(["sudo", "systemctl", "status", "minecraft"], capture_output=True)
+    result = subprocess.run(["sudo", "systemctl", "is-active", "minecraft"], capture_output=True)
     print(result.stdout)
 
 bot.run(token)
