@@ -20,7 +20,10 @@ async def on_message(message):
 
 @bot.command()
 async def server_status(ctx):
-    result = subprocess.run(["sudo", "systemctl", "is-active", "minecraft"], capture_output=True)
-    print(result.stdout)
+    result = subprocess.run(["sudo", "systemctl", "is-active", "minecraft"], capture_output=True, text=True)
+    if(result.stdout.strip() == "active"):
+        await ctx.send("Minecraft serveren kører 🟢")
+    else:
+        await ctx.send("Minecraft serveren kører ikke 🔴")
 
 bot.run(token)
