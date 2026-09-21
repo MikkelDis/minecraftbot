@@ -56,7 +56,8 @@ async def stop_server(ctx):
 async def spiller_liste(ctx):
     with MCRcon("127.0.0.1", rconpass, port=25575) as mcr:
         response = mcr.command("list")
-        print(response)
+        print("Kommandoen blev koert")
+        await ctx.send(response)
 
 
 bot.run(token)
