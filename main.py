@@ -9,10 +9,6 @@ load_dotenv()
 token = os.getenv("DISCORD_TOKEN")
 rconpass = os.getenv("MCRCON_PASSWORD")
 
-with MCRcon("127.0.0.1", rconpass, port=25575) as mcr:
-    response = mcr.command("list")
-    print(response)
-
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -56,6 +52,11 @@ async def stop_server(ctx):
     else:
         await ctx.send("Serveren er allerede lukket 🔴")
 
+@bot.command()
+async def spiller_liste(ctx):
+    with MCRcon("127.0.0.1", rconpass, port=25575) as mcr:
+        response = mcr.command("list")
+        print(response)
 
 
 bot.run(token)
