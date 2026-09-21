@@ -61,8 +61,14 @@ async def spiller_liste(ctx):
 @bot.command()
 async def command(ctx, *args):
     commandString = ""
-    for x in args:
-        commandString += x + " "
+
+    for x in range(len(args)):
+        if(args[x] == ""):
+            continue
+        if(x == len(args)-1):
+            commandString = commandString + args[x]
+            continue
+        commandString += args[x] + " "
 
     with MCRcon("127.0.0.1", rconpass, port=25575) as mcr:
         response = mcr.command(commandString)
