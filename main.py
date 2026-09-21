@@ -56,9 +56,17 @@ async def stop_server(ctx):
 async def spiller_liste(ctx):
     with MCRcon("127.0.0.1", rconpass, port=25575) as mcr:
         response = mcr.command("list")
-        print("Kommandoen blev koert")
-        await ctx.send("Test koersel")
         await ctx.send(response)
 
+@bot.command()
+async def command(ctx, *args):
+    commandString = ""
+    for x in args:
+        commandString += x + " "
+
+    with MCRcon("127.0.0.1", rconpass, port=25575) as mcr:
+        response = mcr.command(commandString)
+        await ctx.send("Prøver at køre kommandoen: " + commandString)
+        await ctx.send(response)
 
 bot.run(token)
